@@ -1205,3 +1205,77 @@ input {
   object-fit: contain;
   display: block;
 }
+
+/* 배포 모바일 전체 사이즈 안정화 */
+@media (max-width: 768px) {
+  .intro-screen,
+  .sky-stage,
+  .booth-screen,
+  .edit-screen,
+  .result-screen {
+    min-height: 100svh !important;
+    padding: 12px 10px 96px !important;
+    overflow-y: auto !important;
+    align-items: flex-start !important;
+  }
+
+  .retro-window,
+  .xp-window,
+  .booth-retro-window,
+  .edit-window,
+  .result-window,
+  .frame-window,
+  .mode-window {
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+
+  .retro-window-body,
+  .xp-content,
+  .booth-retro-body,
+  .edit-content,
+  .result-content {
+    padding: 14px !important;
+  }
+
+  .preview-stage {
+    width: min(82vw, 330px) !important;
+    max-width: 330px !important;
+  }
+
+  .result-preview img {
+    max-width: 82vw !important;
+    max-height: none !important;
+  }
+
+  .frame-mode-grid .retro-button,
+  .retro-button,
+  .xp-button,
+  .booth-filter-btn,
+  .xp-chip {
+    min-height: 42px !important;
+    font-size: 16px !important;
+  }
+}
+
+.site-footer {
+  position: static !important;
+  width: 100% !important;
+  margin-top: 28px !important;
+  padding: 18px 12px calc(18px + env(safe-area-inset-bottom)) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(14px);
+  text-align: center;
+  z-index: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    position: static !important;
+    margin-top: 24px !important;
+  }
+
+  .result-buttons {
+    margin-bottom: 12px !important;
+  }
+}
