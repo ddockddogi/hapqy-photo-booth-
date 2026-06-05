@@ -71,7 +71,7 @@ const FILTER_OPTIONS = [
   { key: "original", label: "Original" },
   { key: "bw", label: "B&W" },
   { key: "haduri", label: "Haduri" },
-  { key: "dream POP", label: "dream POP" },
+  { key: "dream POP", label: "Dream POP" },
   { key: "fisheye", label: "Fisheye" },
 ];
 
@@ -1517,13 +1517,16 @@ function App() {
 function getLiveCanvasFilter(filter) {
   switch (filter) {
     case "bw":
-      return "grayscale(1) contrast(1.12) brightness(1.05)";
+      return "grayscale(1) contrast(1.18) brightness(1.04)";
 
     case "haduri":
-      return "brightness(1.18) contrast(1.06) saturate(0.82) blur(0.06px)";
+      return "brightness(1.18) contrast(1.08) saturate(0.82) blur(0.2px)";
 
     case "dream POP":
-      return "brightness(1.18) contrast(1.35) saturate(2.25) hue-rotate(-8deg)";
+      return "brightness(1.2) contrast(1.35) saturate(2.2) hue-rotate(-10deg)";
+
+    case "fisheye":
+      return "contrast(1.08) saturate(1.08) brightness(1.03)";
 
     default:
       return "none";

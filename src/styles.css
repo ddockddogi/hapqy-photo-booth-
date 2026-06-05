@@ -168,6 +168,12 @@ input {
   box-shadow: 0 18px 40px rgba(70, 40, 90, 0.18);
 }
 
+@media (max-width: 768px) {
+  .edit-window {
+    overflow: visible;
+  }
+}
+
 .retro-titlebar,
 .xp-titlebar {
   height: 54px;
@@ -1026,6 +1032,20 @@ input {
     padding: 14px 10px 24px;
     align-items: flex-start;
     justify-content: center;
+    overflow: visible;
+  }
+
+  .edit-screen {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .edit-window {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .edit-content {
     overflow: visible;
   }
 
