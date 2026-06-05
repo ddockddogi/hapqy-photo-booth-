@@ -406,7 +406,7 @@ input {
   border-radius: 18px;
   background: #fff;
   box-shadow: 0 14px 28px rgba(60, 90, 140, 0.12);
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .preview-canvas {
@@ -1202,5 +1202,27 @@ input {
 
   .chip-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .edit-screen {
+    min-height: 100svh;
+    height: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+  }
+
+  .edit-window {
+    overflow: visible;
+  }
+
+  .edit-content {
+    overflow: visible;
+  }
+
+  .preview-stage {
+    touch-action: pan-y;
   }
 }

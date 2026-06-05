@@ -1540,14 +1540,19 @@ function App() {
 }
 
 function getLiveCanvasFilter(filter) {
-  switch (filter) {
+  const key = String(filter || "").trim().toLowerCase();
+
+  switch (key) {
     case "bw":
+    case "b&w":
+    case "blackwhite":
+    case "black white":
       return "grayscale(1) contrast(1.18) brightness(1.04)";
 
     case "haduri":
       return "brightness(1.2) contrast(1.08) saturate(0.82) blur(0.18px)";
 
-    case "dream POP":
+    case "dream pop":
       return "brightness(1.18) contrast(1.28) saturate(2.1) hue-rotate(-8deg)";
 
     default:
