@@ -1040,6 +1040,35 @@ input {
     -webkit-overflow-scrolling: touch;
   }
 
+  @media (max-width: 768px) {
+  .edit-screen {
+    height: auto;
+    min-height: 100svh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+  }
+
+  .edit-window {
+    max-height: calc(100svh - 28px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .edit-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    overflow: visible;
+  }
+
+  .edit-left,
+  .edit-right {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
   .edit-window {
     max-height: none;
     overflow: visible;

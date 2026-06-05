@@ -327,6 +327,31 @@ function App() {
       ctx.filter = getLiveCanvasFilter(currentFilter);
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       ctx.filter = "none";
+
+      if (currentFilter === "dream POP") {
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        const grad = ctx.createLinearGradient(
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+        );
+        grad.addColorStop(0, "rgba(255, 70, 170, 0.22)");
+        grad.addColorStop(0.45, "rgba(255, 230, 60, 0.16)");
+        grad.addColorStop(1, "rgba(70, 190, 255, 0.22)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+      }
+
+      if (currentFilter === "haduri") {
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.fillStyle = "rgba(255,255,230,0.12)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+      }
     }
 
     ctx.restore();
@@ -1520,13 +1545,10 @@ function getLiveCanvasFilter(filter) {
       return "grayscale(1) contrast(1.18) brightness(1.04)";
 
     case "haduri":
-      return "brightness(1.18) contrast(1.08) saturate(0.82) blur(0.2px)";
+      return "brightness(1.2) contrast(1.08) saturate(0.82) blur(0.18px)";
 
     case "dream POP":
-      return "brightness(1.2) contrast(1.35) saturate(2.2) hue-rotate(-10deg)";
-
-    case "fisheye":
-      return "contrast(1.08) saturate(1.08) brightness(1.03)";
+      return "brightness(1.18) contrast(1.28) saturate(2.1) hue-rotate(-8deg)";
 
     default:
       return "none";
