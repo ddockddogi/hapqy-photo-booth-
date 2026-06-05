@@ -762,741 +762,748 @@ function App() {
 
   return (
     <div className="app-shell">
-      <canvas ref={boothCanvasRef} style={{ display: "none" }} />
-      <canvas ref={recordCanvasRef} style={{ display: "none" }} />
-      {screen === "intro" && (
-        <section className={`intro-screen ${introOpen ? "open" : ""}`}>
-          <div className="intro-overlay" />
+      <main className="app-main">
+        <canvas ref={boothCanvasRef} style={{ display: "none" }} />
+        <canvas ref={recordCanvasRef} style={{ display: "none" }} />
+        {screen === "intro" && (
+          <section className={`intro-screen ${introOpen ? "open" : ""}`}>
+            <div className="intro-overlay" />
 
-          <img
-            src="/images/logo.png"
-            alt="Hapqy Photo Booth"
-            className="intro-logo"
-          />
-
-          <div className="intro-start-wrap">
-            <button
-              type="button"
-              className="intro-start-btn"
-              onClick={openMachine}
-            >
-              START
-            </button>
-          </div>
-
-          <div className="intro-box-wrap">
             <img
-              src="/images/photobooth-box.png"
-              alt="Photo booth box"
-              className={`intro-booth-image ${introOpen ? "pop-out" : ""}`}
+              src="/images/logo.png"
+              alt="Hapqy Photo Booth"
+              className="intro-logo"
             />
-          </div>
-        </section>
-      )}
 
-      {screen === "mode" && (
-        <div className="sky-stage">
-          <div className="retro-window mode-window">
-            <div className="retro-titlebar">
+            <div className="intro-start-wrap">
+              <button
+                type="button"
+                className="intro-start-btn"
+                onClick={openMachine}
+              >
+                START
+              </button>
+            </div>
+
+            <div className="intro-box-wrap">
               <img
-                src="/images/logo.png"
-                alt="Hapqy Photo Booth"
-                className="retro-title-logo"
+                src="/images/photobooth-box.png"
+                alt="Photo booth box"
+                className={`intro-booth-image ${introOpen ? "pop-out" : ""}`}
               />
-              <div className="retro-window-icons">
-                <span>▁</span>
-                <span>▢</span>
-                <span>×</span>
-              </div>
             </div>
-            <div className="retro-window-body">
-              <p className="window-help">Choose your nostalgic booth mode</p>
-              <div className="mode-grid">
-                {MODE_OPTIONS.map((item) => (
-                  <button
-                    key={item.key}
-                    className="xp-button large"
-                    onClick={() => handleModeSelect(item)}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+          </section>
+        )}
 
-      {screen === "frame" && (
-        <div className="sky-stage">
-          <div className="retro-window frame-window">
-            <div className="retro-titlebar">
-              <img
-                src="/images/logo.png"
-                alt="Hapqy Photo Booth"
-                className="retro-title-logo"
-              />
-
-              <div className="retro-window-icons">
-                <span>▁</span>
-                <span>▢</span>
-                <span>×</span>
-              </div>
-            </div>
-
-            <div className="retro-window-body frame-retro-body">
-              <p className="window-help">Choose your frame layout</p>
-
-              <div className="mode-grid frame-mode-grid">
-                {LAYOUT_OPTIONS.map((item) => (
-                  <button
-                    key={item.key}
-                    className={`retro-button ${layout === item.key ? "active" : ""}`}
-                    onClick={() => {
-                      setLayout(item.key);
-                      setSelectedFrame(FRAME_OPTIONS[item.key][0].key);
-                    }}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-                <p className="window-help">Choose frame design</p>
-
-                <div className="frame-chip-grid">
-                  {FRAME_OPTIONS[layout].map((item) => (
-                    <button
-                      key={item.key}
-                      type="button"
-                      className={`frame-chip ${selectedFrame === item.key ? "active" : ""}`}
-                      onClick={() => setSelectedFrame(item.key)}
-                      title={item.label}
-                    >
-                      <span
-                        className="frame-color-dot"
-                        style={{ background: item.color || "#ffffff" }}
-                      />
-                      <span className="frame-chip-label">{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="retro-actions">
-                <button
-                  className="retro-button"
-                  onClick={() => setScreen("mode")}
-                >
-                  Back
-                </button>
-                <button
-                  className="retro-button primary"
-                  onClick={() => {
-                    if (mode.source === "upload") {
-                      setScreen("upload");
-                    } else {
-                      setScreen("booth");
-                    }
-                  }}
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {screen === "upload" && (
-        <section className="booth-screen">
-          <div className="retro-window booth-retro-window">
-            <div className="retro-titlebar">
-              <img
-                src="/images/logo.png"
-                alt="Hapqy Photo Booth"
-                className="retro-title-logo"
-              />
-
-              <div className="retro-window-icons">
-                <span>▁</span>
-                <span>▢</span>
-                <span>×</span>
-              </div>
-            </div>
-
-            <div className="retro-window-body upload-retro-body">
-              <p className="window-help">Upload your image</p>
-
-              <label className="upload-box">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleUploadFile}
+        {screen === "mode" && (
+          <div className="sky-stage">
+            <div className="retro-window mode-window">
+              <div className="retro-titlebar">
+                <img
+                  src="/images/logo.png"
+                  alt="Hapqy Photo Booth"
+                  className="retro-title-logo"
                 />
-                <span>
-                  {uploadedImage ? "Image selected!" : "Choose Image"}
-                </span>
-              </label>
-
-              {uploadedImage && (
-                <div className="uploaded-preview">
-                  <img src={uploadedImage} alt="uploaded preview" />
-                </div>
-              )}
-
-              <div className="retro-actions">
-                <button
-                  className="retro-button"
-                  onClick={() => setScreen("frame")}
-                >
-                  Back
-                </button>
-
-                <button
-                  className="retro-button primary"
-                  onClick={useUploadedImage}
-                >
-                  Use This Image
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {screen === "booth" && (
-        <section className="booth-screen">
-          <div className="retro-window booth-retro-window">
-            <div className="retro-titlebar">
-              <img
-                src="/images/logo.png"
-                alt="Hapqy Photo Booth"
-                className="retro-title-logo"
-              />
-
-              <div className="retro-window-icons">
-                <span>▁</span>
-                <span>▢</span>
-                <span>×</span>
-              </div>
-            </div>
-
-            <div className="retro-window-body booth-retro-body">
-              <div className="camera-area">
-                <div className="video-panel">
-                  <div className="video-wrap">
-                    <video
-                      ref={videoRef}
-                      className="live-video"
-                      playsInline
-                      muted
-                      autoPlay
-                    />
-                    <canvas
-                      ref={liveCanvasRef}
-                      className={`live-canvas ${filter === "fisheye" ? "live-fisheye" : ""}`}
-                    />
-
-                    {filter === "haduri" && (
-                      <img
-                        src="/frames/hadurist_logo.png"
-                        alt="hadurist logo"
-                        className="live-hadurist-logo"
-                      />
-                    )}
-                    {countdown > 0 && (
-                      <div className="countdown">{countdown}</div>
-                    )}
-                  </div>
+                <div className="retro-window-icons">
+                  <span>▁</span>
+                  <span>▢</span>
+                  <span>×</span>
                 </div>
               </div>
-
-              <div className="camera-controls">
-                <div className="status-bar">
-                  <span className="status-dot" />
-                  {statusText}
-                </div>
-
-                <div className="booth-filter-tabs">
-                  {FILTER_OPTIONS.map((item) => (
+              <div className="retro-window-body">
+                <p className="window-help">Choose your nostalgic booth mode</p>
+                <div className="mode-grid">
+                  {MODE_OPTIONS.map((item) => (
                     <button
                       key={item.key}
-                      className={`booth-filter-btn ${filter === item.key ? "active" : ""}`}
-                      onClick={() => setFilter(item.key)}
+                      className="xp-button large"
+                      onClick={() => handleModeSelect(item)}
                     >
                       {item.label}
                     </button>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
 
-                <div className="snap-actions">
+        {screen === "frame" && (
+          <div className="sky-stage">
+            <div className="retro-window frame-window">
+              <div className="retro-titlebar">
+                <img
+                  src="/images/logo.png"
+                  alt="Hapqy Photo Booth"
+                  className="retro-title-logo"
+                />
+
+                <div className="retro-window-icons">
+                  <span>▁</span>
+                  <span>▢</span>
+                  <span>×</span>
+                </div>
+              </div>
+
+              <div className="retro-window-body frame-retro-body">
+                <p className="window-help">Choose your frame layout</p>
+
+                <div className="mode-grid frame-mode-grid">
+                  {LAYOUT_OPTIONS.map((item) => (
+                    <button
+                      key={item.key}
+                      className={`retro-button ${layout === item.key ? "active" : ""}`}
+                      onClick={() => {
+                        setLayout(item.key);
+                        setSelectedFrame(FRAME_OPTIONS[item.key][0].key);
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                  <p className="window-help">Choose frame design</p>
+
+                  <div className="frame-chip-grid">
+                    {FRAME_OPTIONS[layout].map((item) => (
+                      <button
+                        key={item.key}
+                        type="button"
+                        className={`frame-chip ${selectedFrame === item.key ? "active" : ""}`}
+                        onClick={() => setSelectedFrame(item.key)}
+                        title={item.label}
+                      >
+                        <span
+                          className="frame-color-dot"
+                          style={{ background: item.color || "#ffffff" }}
+                        />
+                        <span className="frame-chip-label">{item.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="retro-actions">
                   <button
                     className="retro-button"
-                    onClick={() => setScreen("frame")}
+                    onClick={() => setScreen("mode")}
                   >
                     Back
                   </button>
                   <button
                     className="retro-button primary"
-                    onClick={startAutoCapture}
-                  >
-                    SNAP
-                  </button>
-                  <button className="retro-button" onClick={resetShots}>
-                    Reset
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {screen === "edit" && (
-        <div
-          className="edit-screen"
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-        >
-          <div className="xp-window edit-window">
-            <div className="xp-titlebar">
-              <span>EDIT / DECORATE</span>
-              <div className="xp-controls">
-                <span>—</span>
-                <span>□</span>
-                <span>×</span>
-              </div>
-            </div>
-
-            <div className="xp-content edit-content">
-              <div className="edit-left">
-                <div
-                  ref={previewWrapRef}
-                  className="preview-stage"
-                  style={{ aspectRatio: layoutRatio }}
-                >
-                  <canvas ref={previewCanvasRef} className="preview-canvas" />
-                  {stickers.map((item) => (
-                    <div
-                      key={item.id}
-                      className={`sticker-item ${selectedStickerId === item.id ? "selected" : ""}`}
-                      style={{
-                        left: item.x,
-                        top: item.y,
-                        width: item.size,
-                        height: item.size,
-                      }}
-                      onPointerDown={() => {
-                        setSelectedStickerId(item.id);
-                        handlePointerDown(item.id);
-                      }}
-                      onDoubleClick={() => removeSticker(item.id)}
-                    >
-                      <img src={item.src} alt="" />
-                    </div>
-                  ))}
-
-                  {showDate && (
-                    <div
-                      className="date-stamp-item"
-                      style={{
-                        left: dateStamp.x,
-                        top: dateStamp.y,
-                        fontSize: dateStamp.size,
-                      }}
-                      onPointerDown={(e) => {
-                        e.preventDefault();
-                        setDragId("dateStamp");
-                      }}
-                    >
-                      {dateStamp.value}
-                      {new Date()
-                        .toLocaleDateString("ko-KR", {
-                          year: "2-digit",
-                          month: "2-digit",
-                          day: "2-digit",
-                        })
-                        .replace(/\./g, " ")
-                        .trim()}
-                    </div>
-                  )}
-                </div>
-
-                <div className="hint-row">
-                  Double click sticker to remove • Drag sticker to move
-                </div>
-              </div>
-
-              <div className="edit-right">
-                <div className="control-block">
-                  <h4>Filters</h4>
-                  <div className="chip-grid">
-                    {FILTER_OPTIONS.map((item) => (
-                      <button
-                        key={item.key}
-                        className={`xp-chip ${filter === item.key ? "active" : ""}`}
-                        onClick={() => setFilter(item.key)}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="control-block">
-                  <h4>Adjust</h4>
-
-                  <label className="range-row">
-                    <span>X</span>
-                    <input
-                      type="range"
-                      min="-200"
-                      max="200"
-                      value={photoAdjust.x}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          x: Number(e.target.value),
-                        }))
-                      }
-                    />
-                    <input
-                      className="range-number"
-                      type="number"
-                      value={photoAdjust.x}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          x: Number(e.target.value),
-                        }))
-                      }
-                    />
-                  </label>
-
-                  <label className="range-row">
-                    <span>Y</span>
-                    <input
-                      type="range"
-                      min="-200"
-                      max="200"
-                      value={photoAdjust.y}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          y: Number(e.target.value),
-                        }))
-                      }
-                    />
-                    <input
-                      className="range-number"
-                      type="number"
-                      value={photoAdjust.y}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          y: Number(e.target.value),
-                        }))
-                      }
-                    />
-                  </label>
-
-                  <label className="range-row">
-                    <span>Zoom</span>
-                    <input
-                      type="range"
-                      min="1"
-                      max="2"
-                      step="0.01"
-                      value={photoAdjust.scale}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          scale: Number(e.target.value),
-                        }))
-                      }
-                    />
-                    <input
-                      className="range-number"
-                      type="number"
-                      step="0.01"
-                      min="1"
-                      max="2"
-                      value={photoAdjust.scale}
-                      onChange={(e) =>
-                        setPhotoAdjust((prev) => ({
-                          ...prev,
-                          scale: Number(e.target.value),
-                        }))
-                      }
-                    />
-                  </label>
-
-                  <label className="range-row">
-                    <span>Grain</span>
-                    <input
-                      type="range"
-                      min="0"
-                      max="60"
-                      value={controls.grain}
-                      onChange={(e) =>
-                        setControls((prev) => ({
-                          ...prev,
-                          grain: Number(e.target.value),
-                        }))
-                      }
-                    />
-                    <input
-                      className="range-number"
-                      type="number"
-                      min="0"
-                      max="60"
-                      value={controls.grain}
-                      onChange={(e) =>
-                        setControls((prev) => ({
-                          ...prev,
-                          grain: Number(e.target.value),
-                        }))
-                      }
-                    />
-                  </label>
-                </div>
-
-                <div className="control-block">
-                  <h4>Date Stamp</h4>
-
-                  <label className="check-row">
-                    <input
-                      type="checkbox"
-                      checked={showDate}
-                      onChange={(e) => setShowDate(e.target.checked)}
-                    />
-                    <span>Show film date stamp</span>
-                  </label>
-
-                  {showDate && (
-                    <>
-                      <label className="range-row">
-                        <span>X</span>
-                        <input
-                          type="range"
-                          min="0"
-                          max={previewW}
-                          value={Math.round(dateStamp.x)}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-
-                              x: Number(e.target.value),
-                            }))
-                          }
-                        />
-                        <input
-                          className="range-number"
-                          type="number"
-                          value={dateStamp.x}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-                              x: Number(e.target.value),
-                            }))
-                          }
-                        />
-                      </label>
-
-                      <label className="range-row">
-                        <span>Y</span>
-                        <input
-                          type="range"
-                          min="0"
-                          max={previewH}
-                          value={Math.round(dateStamp.y)}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-                              y: Number(e.target.value),
-                            }))
-                          }
-                        />
-                        <input
-                          className="range-number"
-                          type="number"
-                          value={dateStamp.y}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-                              y: Number(e.target.value),
-                            }))
-                          }
-                        />
-                      </label>
-
-                      <label className="range-row">
-                        <span>Size</span>
-                        <input
-                          type="range"
-                          min="14"
-                          max="42"
-                          value={dateStamp.size}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-                              size: Number(e.target.value),
-                            }))
-                          }
-                        />
-                        <input
-                          className="range-number"
-                          type="number"
-                          min="14"
-                          max="42"
-                          value={dateStamp.size}
-                          onChange={(e) =>
-                            setDateStamp((prev) => ({
-                              ...prev,
-                              size: Number(e.target.value),
-                            }))
-                          }
-                        />
-                      </label>
-
-                      <button
-                        type="button"
-                        className="xp-button delete-sticker-btn"
-                        onClick={() => setShowDate(false)}
-                      >
-                        Delete Date
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                <div className="control-block">
-                  <h4>Stickers</h4>
-                  <div className="sticker-palette">
-                    {STICKER_OPTIONS.map((item) => (
-                      <button
-                        key={item.key}
-                        type="button"
-                        className="sticker-btn"
-                        onClick={() => addSticker(item)}
-                      >
-                        <img src={item.src} alt="" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {selectedStickerId && (
-                  <label className="range-row">
-                    <span>Size</span>
-                    <input
-                      type="range"
-                      min="18"
-                      max="120"
-                      value={
-                        stickers.find((item) => item.id === selectedStickerId)
-                          ?.size || 34
-                      }
-                      onChange={(e) => {
-                        const size = Number(e.target.value);
-                        setStickers((prev) =>
-                          prev.map((item) =>
-                            item.id === selectedStickerId
-                              ? { ...item, size }
-                              : item,
-                          ),
-                        );
-                      }}
-                    />
-                    <strong>
-                      {stickers.find((item) => item.id === selectedStickerId)
-                        ?.size || 34}
-                    </strong>
-
-                    <button
-                      className="xp-button delete-sticker-btn"
-                      onClick={() => removeSticker(selectedStickerId)}
-                    >
-                      Delete Sticker
-                    </button>
-                  </label>
-                )}
-
-                <div className="frame-actions">
-                  <button
-                    className="xp-button"
                     onClick={() => {
                       if (mode.source === "upload") {
-                        setShots([]);
-                        setUploadedImage(null);
-                        setResultUrl("");
                         setScreen("upload");
                       } else {
                         setScreen("booth");
                       }
                     }}
                   >
-                    {mode.source === "upload" ? "Reupload" : "Retake"}
-                  </button>
-                  <button
-                    className="xp-button primary"
-                    onClick={finalizeResult}
-                  >
-                    Finish
+                    Continue
                   </button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {screen === "result" && (
-        <div className="result-screen">
-          <div className="xp-window result-window">
-            <div className="xp-titlebar">
-              <span>RESULT</span>
-              <div className="xp-controls">
-                <span>—</span>
-                <span>□</span>
-                <span>×</span>
-              </div>
-            </div>
+        {screen === "upload" && (
+          <section className="booth-screen">
+            <div className="retro-window booth-retro-window">
+              <div className="retro-titlebar">
+                <img
+                  src="/images/logo.png"
+                  alt="Hapqy Photo Booth"
+                  className="retro-title-logo"
+                />
 
-            <div className="xp-content result-content">
-              <div className="result-preview">
-                {resultUrl && <img src={resultUrl} alt="final result" />}
-              </div>
-
-              <div className="ad-slot">
-                <span>AD SLOT PLACEHOLDER</span>
+                <div className="retro-window-icons">
+                  <span>▁</span>
+                  <span>▢</span>
+                  <span>×</span>
+                </div>
               </div>
 
-              <div className="result-buttons">
-                <button className="xp-button primary" onClick={downloadResult}>
-                  Download Photo
-                </button>
+              <div className="retro-window-body upload-retro-body">
+                <p className="window-help">Upload your image</p>
 
-                {recordVideoUrl && (
-                  <button className="xp-button" onClick={downloadVideo}>
-                    Download WebM
-                  </button>
+                <label className="upload-box">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadFile}
+                  />
+                  <span>
+                    {uploadedImage ? "Image selected!" : "Choose Image"}
+                  </span>
+                </label>
+
+                {uploadedImage && (
+                  <div className="uploaded-preview">
+                    <img src={uploadedImage} alt="uploaded preview" />
+                  </div>
                 )}
 
-                <button className="xp-button" onClick={shareResult}>
-                  Copy Link
-                </button>
+                <div className="retro-actions">
+                  <button
+                    className="retro-button"
+                    onClick={() => setScreen("frame")}
+                  >
+                    Back
+                  </button>
 
-                <button
-                  className="xp-button"
-                  onClick={mode.source === "upload" ? reuploadImage : retakeAll}
-                >
-                  {mode.source === "upload" ? "Reupload" : "Retake"}
-                </button>
+                  <button
+                    className="retro-button primary"
+                    onClick={useUploadedImage}
+                  >
+                    Use This Image
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {screen === "booth" && (
+          <section className="booth-screen">
+            <div className="retro-window booth-retro-window">
+              <div className="retro-titlebar">
+                <img
+                  src="/images/logo.png"
+                  alt="Hapqy Photo Booth"
+                  className="retro-title-logo"
+                />
+
+                <div className="retro-window-icons">
+                  <span>▁</span>
+                  <span>▢</span>
+                  <span>×</span>
+                </div>
+              </div>
+
+              <div className="retro-window-body booth-retro-body">
+                <div className="camera-area">
+                  <div className="video-panel">
+                    <div className="video-wrap">
+                      <video
+                        ref={videoRef}
+                        className="live-video"
+                        playsInline
+                        muted
+                        autoPlay
+                      />
+                      <canvas
+                        ref={liveCanvasRef}
+                        className={`live-canvas ${filter === "fisheye" ? "live-fisheye" : ""}`}
+                      />
+
+                      {filter === "haduri" && (
+                        <img
+                          src="/frames/hadurist_logo.png"
+                          alt="hadurist logo"
+                          className="live-hadurist-logo"
+                        />
+                      )}
+                      {countdown > 0 && (
+                        <div className="countdown">{countdown}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="camera-controls">
+                  <div className="status-bar">
+                    <span className="status-dot" />
+                    {statusText}
+                  </div>
+
+                  <div className="booth-filter-tabs">
+                    {FILTER_OPTIONS.map((item) => (
+                      <button
+                        key={item.key}
+                        className={`booth-filter-btn ${filter === item.key ? "active" : ""}`}
+                        onClick={() => setFilter(item.key)}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="snap-actions">
+                    <button
+                      className="retro-button"
+                      onClick={() => setScreen("frame")}
+                    >
+                      Back
+                    </button>
+                    <button
+                      className="retro-button primary"
+                      onClick={startAutoCapture}
+                    >
+                      SNAP
+                    </button>
+                    <button className="retro-button" onClick={resetShots}>
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {screen === "edit" && (
+          <div
+            className="edit-screen"
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+          >
+            <div className="xp-window edit-window">
+              <div className="xp-titlebar">
+                <span>EDIT / DECORATE</span>
+                <div className="xp-controls">
+                  <span>—</span>
+                  <span>□</span>
+                  <span>×</span>
+                </div>
+              </div>
+
+              <div className="xp-content edit-content">
+                <div className="edit-left">
+                  <div
+                    ref={previewWrapRef}
+                    className="preview-stage"
+                    style={{ aspectRatio: layoutRatio }}
+                  >
+                    <canvas ref={previewCanvasRef} className="preview-canvas" />
+                    {stickers.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`sticker-item ${selectedStickerId === item.id ? "selected" : ""}`}
+                        style={{
+                          left: item.x,
+                          top: item.y,
+                          width: item.size,
+                          height: item.size,
+                        }}
+                        onPointerDown={() => {
+                          setSelectedStickerId(item.id);
+                          handlePointerDown(item.id);
+                        }}
+                        onDoubleClick={() => removeSticker(item.id)}
+                      >
+                        <img src={item.src} alt="" />
+                      </div>
+                    ))}
+
+                    {showDate && (
+                      <div
+                        className="date-stamp-item"
+                        style={{
+                          left: dateStamp.x,
+                          top: dateStamp.y,
+                          fontSize: dateStamp.size,
+                        }}
+                        onPointerDown={(e) => {
+                          e.preventDefault();
+                          setDragId("dateStamp");
+                        }}
+                      >
+                        {dateStamp.value}
+                        {new Date()
+                          .toLocaleDateString("ko-KR", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })
+                          .replace(/\./g, " ")
+                          .trim()}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="hint-row">
+                    Double click sticker to remove • Drag sticker to move
+                  </div>
+                </div>
+
+                <div className="edit-right">
+                  <div className="control-block">
+                    <h4>Filters</h4>
+                    <div className="chip-grid">
+                      {FILTER_OPTIONS.map((item) => (
+                        <button
+                          key={item.key}
+                          className={`xp-chip ${filter === item.key ? "active" : ""}`}
+                          onClick={() => setFilter(item.key)}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="control-block">
+                    <h4>Adjust</h4>
+
+                    <label className="range-row">
+                      <span>X</span>
+                      <input
+                        type="range"
+                        min="-200"
+                        max="200"
+                        value={photoAdjust.x}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            x: Number(e.target.value),
+                          }))
+                        }
+                      />
+                      <input
+                        className="range-number"
+                        type="number"
+                        value={photoAdjust.x}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            x: Number(e.target.value),
+                          }))
+                        }
+                      />
+                    </label>
+
+                    <label className="range-row">
+                      <span>Y</span>
+                      <input
+                        type="range"
+                        min="-200"
+                        max="200"
+                        value={photoAdjust.y}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            y: Number(e.target.value),
+                          }))
+                        }
+                      />
+                      <input
+                        className="range-number"
+                        type="number"
+                        value={photoAdjust.y}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            y: Number(e.target.value),
+                          }))
+                        }
+                      />
+                    </label>
+
+                    <label className="range-row">
+                      <span>Zoom</span>
+                      <input
+                        type="range"
+                        min="1"
+                        max="2"
+                        step="0.01"
+                        value={photoAdjust.scale}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            scale: Number(e.target.value),
+                          }))
+                        }
+                      />
+                      <input
+                        className="range-number"
+                        type="number"
+                        step="0.01"
+                        min="1"
+                        max="2"
+                        value={photoAdjust.scale}
+                        onChange={(e) =>
+                          setPhotoAdjust((prev) => ({
+                            ...prev,
+                            scale: Number(e.target.value),
+                          }))
+                        }
+                      />
+                    </label>
+
+                    <label className="range-row">
+                      <span>Grain</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="60"
+                        value={controls.grain}
+                        onChange={(e) =>
+                          setControls((prev) => ({
+                            ...prev,
+                            grain: Number(e.target.value),
+                          }))
+                        }
+                      />
+                      <input
+                        className="range-number"
+                        type="number"
+                        min="0"
+                        max="60"
+                        value={controls.grain}
+                        onChange={(e) =>
+                          setControls((prev) => ({
+                            ...prev,
+                            grain: Number(e.target.value),
+                          }))
+                        }
+                      />
+                    </label>
+                  </div>
+
+                  <div className="control-block">
+                    <h4>Date Stamp</h4>
+
+                    <label className="check-row">
+                      <input
+                        type="checkbox"
+                        checked={showDate}
+                        onChange={(e) => setShowDate(e.target.checked)}
+                      />
+                      <span>Show film date stamp</span>
+                    </label>
+
+                    {showDate && (
+                      <>
+                        <label className="range-row">
+                          <span>X</span>
+                          <input
+                            type="range"
+                            min="0"
+                            max={previewW}
+                            value={Math.round(dateStamp.x)}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+
+                                x: Number(e.target.value),
+                              }))
+                            }
+                          />
+                          <input
+                            className="range-number"
+                            type="number"
+                            value={dateStamp.x}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+                                x: Number(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+
+                        <label className="range-row">
+                          <span>Y</span>
+                          <input
+                            type="range"
+                            min="0"
+                            max={previewH}
+                            value={Math.round(dateStamp.y)}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+                                y: Number(e.target.value),
+                              }))
+                            }
+                          />
+                          <input
+                            className="range-number"
+                            type="number"
+                            value={dateStamp.y}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+                                y: Number(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+
+                        <label className="range-row">
+                          <span>Size</span>
+                          <input
+                            type="range"
+                            min="14"
+                            max="42"
+                            value={dateStamp.size}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+                                size: Number(e.target.value),
+                              }))
+                            }
+                          />
+                          <input
+                            className="range-number"
+                            type="number"
+                            min="14"
+                            max="42"
+                            value={dateStamp.size}
+                            onChange={(e) =>
+                              setDateStamp((prev) => ({
+                                ...prev,
+                                size: Number(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+
+                        <button
+                          type="button"
+                          className="xp-button delete-sticker-btn"
+                          onClick={() => setShowDate(false)}
+                        >
+                          Delete Date
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="control-block">
+                    <h4>Stickers</h4>
+                    <div className="sticker-palette">
+                      {STICKER_OPTIONS.map((item) => (
+                        <button
+                          key={item.key}
+                          type="button"
+                          className="sticker-btn"
+                          onClick={() => addSticker(item)}
+                        >
+                          <img src={item.src} alt="" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {selectedStickerId && (
+                    <label className="range-row">
+                      <span>Size</span>
+                      <input
+                        type="range"
+                        min="18"
+                        max="120"
+                        value={
+                          stickers.find((item) => item.id === selectedStickerId)
+                            ?.size || 34
+                        }
+                        onChange={(e) => {
+                          const size = Number(e.target.value);
+                          setStickers((prev) =>
+                            prev.map((item) =>
+                              item.id === selectedStickerId
+                                ? { ...item, size }
+                                : item,
+                            ),
+                          );
+                        }}
+                      />
+                      <strong>
+                        {stickers.find((item) => item.id === selectedStickerId)
+                          ?.size || 34}
+                      </strong>
+
+                      <button
+                        className="xp-button delete-sticker-btn"
+                        onClick={() => removeSticker(selectedStickerId)}
+                      >
+                        Delete Sticker
+                      </button>
+                    </label>
+                  )}
+
+                  <div className="frame-actions">
+                    <button
+                      className="xp-button"
+                      onClick={() => {
+                        if (mode.source === "upload") {
+                          setShots([]);
+                          setUploadedImage(null);
+                          setResultUrl("");
+                          setScreen("upload");
+                        } else {
+                          setScreen("booth");
+                        }
+                      }}
+                    >
+                      {mode.source === "upload" ? "Reupload" : "Retake"}
+                    </button>
+                    <button
+                      className="xp-button primary"
+                      onClick={finalizeResult}
+                    >
+                      Finish
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {screen === "result" && (
+          <div className="result-screen">
+            <div className="xp-window result-window">
+              <div className="xp-titlebar">
+                <span>RESULT</span>
+                <div className="xp-controls">
+                  <span>—</span>
+                  <span>□</span>
+                  <span>×</span>
+                </div>
+              </div>
+
+              <div className="xp-content result-content">
+                <div className="result-preview">
+                  {resultUrl && <img src={resultUrl} alt="final result" />}
+                </div>
+
+                <div className="ad-slot">
+                  <span>AD SLOT PLACEHOLDER</span>
+                </div>
+
+                <div className="result-buttons">
+                  <button
+                    className="xp-button primary"
+                    onClick={downloadResult}
+                  >
+                    Download Photo
+                  </button>
+
+                  {recordVideoUrl && (
+                    <button className="xp-button" onClick={downloadVideo}>
+                      Download WebM
+                    </button>
+                  )}
+
+                  <button className="xp-button" onClick={shareResult}>
+                    Copy Link
+                  </button>
+
+                  <button
+                    className="xp-button"
+                    onClick={
+                      mode.source === "upload" ? reuploadImage : retakeAll
+                    }
+                  >
+                    {mode.source === "upload" ? "Reupload" : "Retake"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
 
       <SiteFooter setPolicyModal={setPolicyModal} />
 
