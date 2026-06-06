@@ -1733,11 +1733,13 @@ function SeoSection({ seoLang, setSeoLang }) {
           <p>
             Hapqy Photobooth는 설치 없이 웹 브라우저에서 바로 사용할 수 있는
             무료 온라인 포토부스입니다. 웹캠으로 사진을 찍거나 이미지를 업로드해
-            Y2K 감성의 네컷사진 포토스트립을 만들고 다운로드할 수 있습니다.
+            Y2K 감성의 레트로 네컷사진과 포토스트립을 만들고 다운로드할 수
+            있습니다.
           </p>
 
           <p>
-            Free online photobooth, web photobooth, Y2K photobooth를 찾는
+            온라인 포토부스, 웹캠 포토부스, 네컷사진 만들기, 포토스트립 만들기,
+            레트로 포토부스, Y2K photobooth, free online photobooth를 찾는
             사용자도 브라우저에서 바로 사진을 만들 수 있습니다.
           </p>
 
@@ -1747,50 +1749,60 @@ function SeoSection({ seoLang, setSeoLang }) {
             <li>웹캠 촬영 컷 또는 이미지 업로드 방식을 선택합니다.</li>
             <li>컷에 어울리는 다양한 프레임 디자인 중 하나를 선택합니다.</li>
             <li>Snap 버튼을 통해 사진을 찍어줍니다.</li>
-            <li>필터와 스티커를 적용한 뒤 완성된 사진을 다운로드합니다.</li>
+            <li>
+              Y2K 레트로 필터와 스티커를 적용한 뒤 완성된 사진을 다운로드합니다.
+            </li>
           </ol>
 
           <h2>지원 기능</h2>
           <ul>
             <li>무료 온라인 포토부스</li>
-            <li>Y2K 네컷사진 만들기</li>
-            <li>웹캠 촬영 및 이미지 업로드</li>
-            <li>빈티지 필터 및 스티커 꾸미기</li>
-            <li>포토스트립 사진 다운로드</li>
+            <li>웹캠 포토부스 촬영</li>
+            <li>Y2K 감성 레트로 네컷사진 만들기</li>
+            <li>포토스트립 만들기 및 사진 다운로드</li>
+            <li>이미지 업로드, 빈티지 필터, 스티커 꾸미기</li>
           </ul>
         </>
       ) : (
         <>
-          <h1>Free Online Photobooth Hapqy Photobooth</h1>
+          <h1>
+            Hapqy Photobooth | Free Online Photobooth & Y2K Retro Photo Strip
+            Maker
+          </h1>
 
           <p>
             Hapqy Photobooth is a free online photobooth that works directly in
             your web browser. You can take photos with your webcam or upload an
-            image to create cute Y2K-style photo strips.
+            image to create Y2K retro photo strips and four-cut photo booth
+            pictures.
           </p>
 
           <p>
-            If you are looking for a web photobooth, Y2K photobooth, vintage
-            photo booth, or photo strip maker, Hapqy Photobooth lets you create
-            and download your photos instantly.
+            If you are looking for an online photobooth, webcam photobooth, web
+            photobooth, Y2K photobooth, vintage photo booth, retro photo booth,
+            or photo strip maker, Hapqy Photobooth lets you create and download
+            your photos instantly.
           </p>
 
           <h2>How to Use Hapqy Photobooth</h2>
           <ol>
-            <li>Click the START button to open the photobooth.</li>
+            <li>Click the START button to open the free online photobooth.</li>
             <li>Choose webcam capture or image upload mode.</li>
-            <li>Select a frame layout and frame design.</li>
-            <li>Use the Snap button to take your photos.</li>
-            <li>Add filters and stickers, then download your final photo.</li>
+            <li>Select a photo strip layout and frame design.</li>
+            <li>Use the Snap button to take your webcam photos.</li>
+            <li>
+              Add Y2K retro filters and stickers, then download your final photo
+              strip.
+            </li>
           </ol>
 
           <h2>Features</h2>
           <ul>
             <li>Free online photobooth</li>
-            <li>Y2K photo strip maker</li>
-            <li>Webcam capture and image upload</li>
-            <li>Vintage filters and cute stickers</li>
-            <li>Instant photo strip download</li>
+            <li>Webcam photobooth and image upload</li>
+            <li>Y2K retro photo strip maker</li>
+            <li>Four-cut photo booth layout</li>
+            <li>Vintage filters, cute stickers, and instant photo download</li>
           </ul>
         </>
       )}
