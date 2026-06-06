@@ -402,6 +402,31 @@ function App() {
     }
   }
 
+  function getCaptureRatio(layoutKey) {
+    switch (layoutKey) {
+      case "4cut":
+        return 799 / 420;
+
+      case "3cut":
+        return 765 / 437;
+
+      case "4cutFull":
+        return 857 / 641;
+
+      case "grid45":
+        return 526 / 676;
+
+      case "single45":
+        return 4 / 5;
+
+      case "webfull":
+        return 1123 / 597;
+
+      default:
+        return 16 / 9;
+    }
+  }
+
   function captureCurrentFrame() {
     const video = videoRef.current;
     const canvas = boothCanvasRef.current;
@@ -413,8 +438,57 @@ function App() {
     const sourceH = video.videoHeight || 720;
     const targetRatio = getCaptureRatio(layout);
 
+    const isMobile = window.innerWidth <= 768;
+
     let cropW = sourceW;
-    let cropH = sourceW / targetRatio;
+    let cropH = sourceH;
+
+    if (
+      isMobile &&
+      (layout === "4cut" || layout === "3cut" || layout === "3cutspecial" || layout === "4cutFull")
+    ) {
+      // 모바일 세로 카메라에서는 얼굴이 너무 확대되지 않도록 contain 느낌으로 저장
+      canvas.width = 1280;
+      canvas.height = Math.round(1280 / targetRatio);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const videoRatio = sourceW / sourceH;
+
+      let drawW;
+      let drawH;
+
+      if (videoRatio > targetRatio) {
+        drawW = canvas.width;
+        drawH = canvas.width / videoRatio;
+      } else {
+        drawH = canvas.height;
+        drawW = canvas.height * videoRatio;
+      }
+
+      // 모바일은 살짝 더 광각처럼 보이게 축소
+      drawW *= 0.92;
+      drawH *= 0.92;
+
+      const dx = (canvas.width - drawW) / 2;
+      const dy = (canvas.height - drawH) / 2;
+
+      ctx.save();
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+
+      ctx.drawImage(video, 0, 0, sourceW, sourceH, dx, dy, drawW, drawH);
+
+      ctx.restore();
+
+      return canvas.toDataURL("image/png");
+    }
+
+    // 데스크탑/일반 레이아웃 기존 방식
+    cropW = sourceW;
+    cropH = sourceW / targetRatio;
 
     if (cropH > sourceH) {
       cropH = sourceH;
@@ -1275,7 +1349,7 @@ function App() {
                       <span>Zoom</span>
                       <input
                         type="range"
-                        min="1"
+                        min="0.55"
                         max="2"
                         step="0.01"
                         value={photoAdjust.scale}
@@ -1290,7 +1364,7 @@ function App() {
                         className="range-number"
                         type="number"
                         step="0.01"
-                        min="1"
+                        min="0.55"
                         max="2"
                         value={photoAdjust.scale}
                         onChange={(e) =>
@@ -1586,20 +1660,21 @@ function App() {
 }
 
 function getLiveCanvasFilter(filter) {
-  const key = String(filter || "")
-    .trim()
-    .toLowerCase();
-
-  switch (key) {
+  switch (filter) {
     case "B&W":
     case "bw":
+    case "blackwhite":
+    case "blackWhite":
       return "grayscale(1) contrast(1.18) brightness(1.04)";
 
     case "haduri":
       return "brightness(1.2) contrast(1.08) saturate(0.82) blur(0.18px)";
 
-    case "dream pop":
+    case "dream POP":
       return "brightness(1.18) contrast(1.28) saturate(2.1) hue-rotate(-8deg)";
+
+    case "fisheye":
+      return "contrast(1.08) saturate(1.08) brightness(1.03)";
 
     default:
       return "none";

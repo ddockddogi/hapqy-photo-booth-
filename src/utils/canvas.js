@@ -359,6 +359,8 @@ function applyFilterSettings(ctx, filterName, width, height, controls = {}) {
   switch (filterName) {
     case "B&W":
     case "bw":
+    case "blackwhite":
+    case "black&White":
       filter += " grayscale(1) contrast(1.18) brightness(1.02)";
       break;
 
