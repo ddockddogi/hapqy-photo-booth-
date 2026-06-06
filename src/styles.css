@@ -1230,3 +1230,16 @@ input {
     touch-action: pan-y;
   }
 }
+
+@media (max-width: 768px) {
+  .edit-right .chip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .edit-right .xp-chip {
+    width: 100%;
+    min-height: 42px;
+  }
+}

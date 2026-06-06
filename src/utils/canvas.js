@@ -387,6 +387,29 @@ function applyFilterSettings(ctx, filterName, width, height, controls = {}) {
   ctx.filter = filter;
 }
 
+function isBwFilter(filterName) {
+  return (
+    filterName === "bw" ||
+    filterName === "B&W" ||
+    filterName === "blackwhite" ||
+    filterName === "blackWhite"
+  );
+}
+
+function applyManualBW(ctx, x, y, width, height) {
+  const imageData = ctx.getImageData(x, y, width, height);
+  const data = imageData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+    data[i] = gray;
+    data[i + 1] = gray;
+    data[i + 2] = gray;
+  }
+
+  ctx.putImageData(imageData, x, y);
+}
+
 function addStrongNoise(ctx, x, y, width, height, amount = 30) {
   const imageData = ctx.getImageData(x, y, width, height);
   const data = imageData.data;
@@ -710,6 +733,10 @@ async function drawFittedImage(
     ctx.drawImage(tempCanvas, dx, dy, dw, dh);
   } else {
     ctx.drawImage(img, dx, dy, dw, dh);
+  }
+
+  if (isBwFilter(filterName)) {
+    applyManualBW(ctx, slot.x, slot.y, slot.w, slot.h);
   }
 
   if (filterName === "dream POP") {

@@ -328,6 +328,21 @@ function App() {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       ctx.filter = "none";
 
+      if (currentFilter === "bw") {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+          const gray =
+            data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+          data[i] = gray;
+          data[i + 1] = gray;
+          data[i + 2] = gray;
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+      }
+
       if (currentFilter === "dream POP") {
         ctx.save();
         ctx.globalCompositeOperation = "screen";
@@ -383,50 +398,6 @@ function App() {
     }
   }
 
-  function getCaptureRatio(layoutKey) {
-    switch (layoutKey) {
-      case "4cut":
-        return 799 / 420;
-      case "3cut":
-        return 765 / 437;
-      case "4cutFull":
-        return 857 / 641;
-      case "grid45":
-        return 526 / 676;
-      case "single45":
-        return 4 / 5;
-      case "webfull":
-        return 1123 / 597;
-      default:
-        return 16 / 9;
-    }
-  }
-
-  function getCaptureRatio(layoutKey) {
-    switch (layoutKey) {
-      case "4cut":
-        return 799 / 420;
-
-      case "3cut":
-        return 765 / 437;
-
-      case "4cutFull":
-        return 857 / 641;
-
-      case "grid45":
-        return 526 / 676;
-
-      case "single45":
-        return 4 / 5;
-
-      case "webfull":
-        return 1123 / 597;
-
-      default:
-        return 16 / 9;
-    }
-  }
-
   function captureCurrentFrame() {
     const video = videoRef.current;
     const canvas = boothCanvasRef.current;
@@ -434,72 +405,8 @@ function App() {
 
     const ctx = canvas.getContext("2d");
 
-    const sourceW = video.videoWidth || 1280;
-    const sourceH = video.videoHeight || 720;
-    const targetRatio = getCaptureRatio(layout);
-
-    const isMobile = window.innerWidth <= 768;
-
-    let cropW = sourceW;
-    let cropH = sourceH;
-
-    if (
-      isMobile &&
-      (layout === "4cut" || layout === "3cut" || layout === "3cutspecial" || layout === "4cutFull")
-    ) {
-      // 모바일 세로 카메라에서는 얼굴이 너무 확대되지 않도록 contain 느낌으로 저장
-      canvas.width = 1280;
-      canvas.height = Math.round(1280 / targetRatio);
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const videoRatio = sourceW / sourceH;
-
-      let drawW;
-      let drawH;
-
-      if (videoRatio > targetRatio) {
-        drawW = canvas.width;
-        drawH = canvas.width / videoRatio;
-      } else {
-        drawH = canvas.height;
-        drawW = canvas.height * videoRatio;
-      }
-
-      // 모바일은 살짝 더 광각처럼 보이게 축소
-      drawW *= 0.92;
-      drawH *= 0.92;
-
-      const dx = (canvas.width - drawW) / 2;
-      const dy = (canvas.height - drawH) / 2;
-
-      ctx.save();
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
-
-      ctx.drawImage(video, 0, 0, sourceW, sourceH, dx, dy, drawW, drawH);
-
-      ctx.restore();
-
-      return canvas.toDataURL("image/png");
-    }
-
-    // 데스크탑/일반 레이아웃 기존 방식
-    cropW = sourceW;
-    cropH = sourceW / targetRatio;
-
-    if (cropH > sourceH) {
-      cropH = sourceH;
-      cropW = sourceH * targetRatio;
-    }
-
-    const cropX = (sourceW - cropW) / 2;
-    const cropY = (sourceH - cropH) / 2;
-
-    canvas.width = 1280;
-    canvas.height = Math.round(1280 / targetRatio);
+    canvas.width = video.videoWidth || 1280;
+    canvas.height = video.videoHeight || 720;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -507,17 +414,7 @@ function App() {
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
 
-    ctx.drawImage(
-      video,
-      cropX,
-      cropY,
-      cropW,
-      cropH,
-      0,
-      0,
-      canvas.width,
-      canvas.height,
-    );
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     ctx.restore();
 
