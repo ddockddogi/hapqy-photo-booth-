@@ -357,6 +357,7 @@ function applyFilterSettings(ctx, filterName, width, height, controls = {}) {
   let filter = `blur(${blurPx}px)`;
 
   switch (filterName) {
+    case "B&W":
     case "bw":
       filter += " grayscale(1) contrast(1.18) brightness(1.02)";
       break;

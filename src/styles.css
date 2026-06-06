@@ -1013,14 +1013,14 @@ input {
   }
 
   .intro-start-btn {
-    min-width: 190px;
-    height: 54px;
+    min-width: 150px;
+    height: 44px;
     margin: 0;
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .intro-booth-image {
-    width: min(330px, 82vw);
+    width: min(230px, 72vw);
   }
 
   .sky-stage,
@@ -1041,33 +1041,33 @@ input {
   }
 
   @media (max-width: 768px) {
-  .edit-screen {
-    height: auto;
-    min-height: 100svh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    align-items: flex-start;
-  }
+    .edit-screen {
+      height: auto;
+      min-height: 100svh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      align-items: flex-start;
+    }
 
-  .edit-window {
-    max-height: calc(100svh - 28px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+    .edit-window {
+      max-height: calc(100svh - 28px);
+      overflow: hidden;
+      border-radius: 18px;
+    }
 
-  .edit-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    overflow: visible;
-  }
+    .edit-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      overflow: visible;
+    }
 
-  .edit-left,
-  .edit-right {
-    width: 100%;
-    min-width: 0;
+    .edit-left,
+    .edit-right {
+      width: 100%;
+      min-width: 0;
+    }
   }
-}
 
   .edit-window {
     max-height: none;
@@ -1207,19 +1207,23 @@ input {
 
 @media (max-width: 768px) {
   .edit-screen {
-    min-height: 100svh;
-    height: auto;
+    align-items: flex-start;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    align-items: flex-start;
   }
 
   .edit-window {
-    overflow: visible;
+    max-height: calc(100svh - 28px);
+    overflow: hidden;
+    border-radius: 18px;
   }
 
   .edit-content {
-    overflow: visible;
+    max-height: calc(100svh - 46px - 34px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .preview-stage {

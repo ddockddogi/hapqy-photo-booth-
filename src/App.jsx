@@ -383,6 +383,25 @@ function App() {
     }
   }
 
+  function getCaptureRatio(layoutKey) {
+    switch (layoutKey) {
+      case "4cut":
+        return 799 / 420;
+      case "3cut":
+        return 765 / 437;
+      case "4cutFull":
+        return 857 / 641;
+      case "grid45":
+        return 526 / 676;
+      case "single45":
+        return 4 / 5;
+      case "webfull":
+        return 1123 / 597;
+      default:
+        return 16 / 9;
+    }
+  }
+
   function captureCurrentFrame() {
     const video = videoRef.current;
     const canvas = boothCanvasRef.current;
@@ -390,15 +409,42 @@ function App() {
 
     const ctx = canvas.getContext("2d");
 
-    canvas.width = video.videoWidth || 1280;
-    canvas.height = video.videoHeight || 720;
+    const sourceW = video.videoWidth || 1280;
+    const sourceH = video.videoHeight || 720;
+    const targetRatio = getCaptureRatio(layout);
+
+    let cropW = sourceW;
+    let cropH = sourceW / targetRatio;
+
+    if (cropH > sourceH) {
+      cropH = sourceH;
+      cropW = sourceH * targetRatio;
+    }
+
+    const cropX = (sourceW - cropW) / 2;
+    const cropY = (sourceH - cropH) / 2;
+
+    canvas.width = 1280;
+    canvas.height = Math.round(1280 / targetRatio);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(
+      video,
+      cropX,
+      cropY,
+      cropW,
+      cropH,
+      0,
+      0,
+      canvas.width,
+      canvas.height,
+    );
+
     ctx.restore();
 
     return canvas.toDataURL("image/png");
@@ -1540,13 +1586,13 @@ function App() {
 }
 
 function getLiveCanvasFilter(filter) {
-  const key = String(filter || "").trim().toLowerCase();
+  const key = String(filter || "")
+    .trim()
+    .toLowerCase();
 
   switch (key) {
+    case "B&W":
     case "bw":
-    case "b&w":
-    case "blackwhite":
-    case "black white":
       return "grayscale(1) contrast(1.18) brightness(1.04)";
 
     case "haduri":
