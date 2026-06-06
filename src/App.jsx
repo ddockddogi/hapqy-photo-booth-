@@ -250,11 +250,27 @@ function App() {
           facingMode: "user",
           width: { ideal: 1280 },
           height: { ideal: 720 },
+          aspectRatio: { ideal: 16 / 9 },
+          resizeMode: "none",
         },
         audio: false,
       });
 
       streamRef.current = stream;
+
+      const track = stream.getVideoTracks()[0];
+
+      try {
+        const capabilities = track.getCapabilities?.();
+
+        if (capabilities?.zoom) {
+          await track.applyConstraints({
+            advanced: [{ zoom: capabilities.zoom.min }],
+          });
+        }
+      } catch (e) {
+        console.log("camera zoom control not supported");
+      }
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
