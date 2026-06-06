@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "NationalParkKomi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/KNPSKkomi-Regular00.woff") format("woff");
+  font-weight: normal;
+  font-display: swap;
+}
+
 html,
 body,
 #root {
@@ -19,6 +26,7 @@ body,
 }
 
 body {
+  font-family: "NationalParkKomi", Arial, Helvetica, sans-serif;
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
@@ -562,7 +570,9 @@ input {
 
 .ad-slot {
   width: min(760px, 92%);
-  min-height: 86px;
+  min-height: 90px;
+  margin: 28px auto 36px;
+  padding: 8px 0;
   border: 3px dashed #9fc8ff;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.75);
@@ -794,7 +804,7 @@ input {
   text-align: center;
   color: #24365c;
   font-size: 10px;
-  background: rgba(255, 255, 255, 0.438);
+  background: rgba(255, 255, 255, 0.278);
   backdrop-filter: blur(12px);
 }
 
@@ -1173,11 +1183,13 @@ input {
     width: 100%;
   }
 
-  .ad-slot {
-    width: 100%;
-    min-height: 72px;
-    font-size: 12px;
-  }
+.ad-slot {
+  width: 100%;
+  min-height: 90px;
+  margin: 28px auto 36px;
+  padding: 8px 0;
+  font-size: 12px;
+}
 
   .footer-links {
     gap: 9px;
@@ -1242,4 +1254,78 @@ input {
     width: 100%;
     min-height: 42px;
   }
+}
+
+.seo-section {
+  font-family: "NationalParkKomi", Arial, Helvetica, sans-serif;
+  max-width: 860px;
+  margin: 80px auto 40px;
+  padding: 32px 24px;
+  color: #27324a;
+  line-height: 1.75;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.253);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 24px;
+  backdrop-filter: blur(8px);
+}
+
+.seo-section h1 {
+  font-size: 26px;
+  margin: 0 0 16px;
+}
+
+.seo-section h2 {
+  font-size: 20px;
+  margin: 28px 0 12px;
+}
+
+.seo-section p {
+  margin: 0 0 14px;
+}
+
+.seo-section ol,
+.seo-section ul {
+  padding-left: 22px;
+  margin: 0 0 16px;
+}
+
+@media (max-width: 768px) {
+  .seo-section {
+    margin: 56px 16px 32px;
+    padding: 24px 18px;
+    font-size: 14px;
+  }
+
+  .seo-section h1 {
+    font-size: 22px;
+  }
+
+  .seo-section h2 {
+    font-size: 18px;
+  }
+}
+
+.seo-lang-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 22px;
+}
+
+.seo-lang-row button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 2px solid #8ebeff;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  color: #24365c;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.seo-lang-row button.active {
+  background: linear-gradient(180deg, #ffb4dc, #f375b8);
+  border-color: #ff72bc;
+  color: #75335f;
 }

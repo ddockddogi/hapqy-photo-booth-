@@ -131,6 +131,7 @@ function App() {
   const [countdown, setCountdown] = useState(null);
   const [shots, setShots] = useState([]);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [seoLang, setSeoLang] = useState("ko");
 
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -193,6 +194,20 @@ function App() {
   useEffect(() => {
     filterRef.current = filter;
   }, [filter]);
+
+  useEffect(() => {
+    if (screen !== "result") return;
+
+    const timer = setTimeout(() => {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.log("AdSense load skipped", e);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [screen, resultUrl]);
 
   useEffect(() => {
     if (screen === "booth" && mode.source === "webcam") {
@@ -906,6 +921,10 @@ function App() {
           </section>
         )}
 
+        {screen === "intro" && (
+          <SeoSection seoLang={seoLang} setSeoLang={setSeoLang} />
+        )}
+
         {screen === "mode" && (
           <div className="sky-stage">
             <div className="retro-window mode-window">
@@ -1580,7 +1599,14 @@ function App() {
                 </div>
 
                 <div className="ad-slot">
-                  <span>AD SLOT PLACEHOLDER</span>
+                  <ins
+                    class="adsbygoogle"
+                    style={{ display: "block" }}
+                    data-ad-client="ca-pub-8092440969971291"
+                    data-ad-slot="7247205282"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"
+                  ></ins>
                 </div>
 
                 <div className="result-buttons">
@@ -1675,6 +1701,101 @@ function drawLiveFisheyeFast(ctx, video, width, height) {
   ctx.globalCompositeOperation = "destination-over";
   ctx.fillRect(0, 0, width, height);
   ctx.restore();
+}
+
+function SeoSection({ seoLang, setSeoLang }) {
+  const isKo = seoLang === "ko";
+
+  return (
+    <section className="seo-section" aria-label="Hapqy Photobooth guide">
+      <div className="seo-lang-row">
+        <button
+          type="button"
+          className={isKo ? "active" : ""}
+          onClick={() => setSeoLang("ko")}
+        >
+          Korea
+        </button>
+
+        <button
+          type="button"
+          className={!isKo ? "active" : ""}
+          onClick={() => setSeoLang("en")}
+        >
+          English
+        </button>
+      </div>
+
+      {isKo ? (
+        <>
+          <h1>무료 온라인 포토부스 Hapqy Photobooth</h1>
+
+          <p>
+            Hapqy Photobooth는 설치 없이 웹 브라우저에서 바로 사용할 수 있는
+            무료 온라인 포토부스입니다. 웹캠으로 사진을 찍거나 이미지를 업로드해
+            Y2K 감성의 네컷사진 포토스트립을 만들고 다운로드할 수 있습니다.
+          </p>
+
+          <p>
+            Free online photobooth, web photobooth, Y2K photobooth를 찾는
+            사용자도 브라우저에서 바로 사진을 만들 수 있습니다.
+          </p>
+
+          <h2>Hapqy Photobooth 사용 방법</h2>
+          <ol>
+            <li>START 버튼을 눌러 포토부스를 시작합니다.</li>
+            <li>웹캠 촬영 컷 또는 이미지 업로드 방식을 선택합니다.</li>
+            <li>컷에 어울리는 다양한 프레임 디자인 중 하나를 선택합니다.</li>
+            <li>Snap 버튼을 통해 사진을 찍어줍니다.</li>
+            <li>필터와 스티커를 적용한 뒤 완성된 사진을 다운로드합니다.</li>
+          </ol>
+
+          <h2>지원 기능</h2>
+          <ul>
+            <li>무료 온라인 포토부스</li>
+            <li>Y2K 네컷사진 만들기</li>
+            <li>웹캠 촬영 및 이미지 업로드</li>
+            <li>빈티지 필터 및 스티커 꾸미기</li>
+            <li>포토스트립 사진 다운로드</li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <h1>Free Online Photobooth Hapqy Photobooth</h1>
+
+          <p>
+            Hapqy Photobooth is a free online photobooth that works directly in
+            your web browser. You can take photos with your webcam or upload an
+            image to create cute Y2K-style photo strips.
+          </p>
+
+          <p>
+            If you are looking for a web photobooth, Y2K photobooth, vintage
+            photo booth, or photo strip maker, Hapqy Photobooth lets you create
+            and download your photos instantly.
+          </p>
+
+          <h2>How to Use Hapqy Photobooth</h2>
+          <ol>
+            <li>Click the START button to open the photobooth.</li>
+            <li>Choose webcam capture or image upload mode.</li>
+            <li>Select a frame layout and frame design.</li>
+            <li>Use the Snap button to take your photos.</li>
+            <li>Add filters and stickers, then download your final photo.</li>
+          </ol>
+
+          <h2>Features</h2>
+          <ul>
+            <li>Free online photobooth</li>
+            <li>Y2K photo strip maker</li>
+            <li>Webcam capture and image upload</li>
+            <li>Vintage filters and cute stickers</li>
+            <li>Instant photo strip download</li>
+          </ul>
+        </>
+      )}
+    </section>
+  );
 }
 
 function SiteFooter({ setPolicyModal }) {
