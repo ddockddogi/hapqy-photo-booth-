@@ -912,17 +912,11 @@ function App() {
             </div>
 
             <div className="intro-box-wrap">
-              <video
+              <img
+                src="/images/photobooth-box.gif"
+                alt="Photo booth box"
                 className={`intro-booth-image ${introOpen ? "pop-out" : ""}`}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-label="Photo booth box"
-              >
-                <source src="/images/photobooth-box.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
           </section>
         )}
