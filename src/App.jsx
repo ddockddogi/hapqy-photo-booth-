@@ -913,7 +913,7 @@ function App() {
 
             <div className="intro-box-wrap">
               <img
-                src="/images/photobooth-box.png"
+                src="/images/photobooth-box.gif"
                 alt="Photo booth box"
                 className={`intro-booth-image ${introOpen ? "pop-out" : ""}`}
               />
