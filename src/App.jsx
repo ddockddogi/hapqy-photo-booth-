@@ -200,14 +200,16 @@ function App() {
 
     const timer = setTimeout(() => {
       try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.log("AdSense load skipped", e);
+        if (window.adsbygoogle) {
+          window.adsbygoogle.push({});
+        }
+      } catch (error) {
+        console.error("AdSense push error:", error);
       }
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [screen, resultUrl]);
+  }, [screen]);
 
   useEffect(() => {
     if (screen === "booth" && mode.source === "webcam") {
@@ -1599,23 +1601,14 @@ function App() {
                 </div>
 
                 <div className="ad-slot">
-                  <script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8092440969971291"
-                    crossorigin="anonymous"
-                  ></script>
-
                   <ins
-                    class="adsbygoogle"
-                    style="display:block"
+                    className="adsbygoogle"
+                    style={{ display: "block" }}
                     data-ad-client="ca-pub-8092440969971291"
                     data-ad-slot="7247205282"
                     data-ad-format="auto"
                     data-full-width-responsive="true"
-                  ></ins>
-                  <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                  </script>
+                  />
                 </div>
 
                 <div className="result-buttons">
