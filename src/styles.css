@@ -571,15 +571,9 @@ input {
 .ad-slot {
   width: min(760px, 92%);
   min-height: 90px;
-  margin: 28px auto 36px;
+  margin: 36px auto;
   padding: 8px 0;
-  border: 3px dashed #9fc8ff;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.75);
-  display: grid;
-  place-items: center;
-  color: #6a80ad;
-  font-weight: 900;
+  display: block;
 }
 
 .result-buttons {
@@ -1186,9 +1180,8 @@ input {
 .ad-slot {
   width: 100%;
   min-height: 90px;
-  margin: 28px auto 36px;
+  margin: 32px auto;
   padding: 8px 0;
-  font-size: 12px;
 }
 
   .footer-links {

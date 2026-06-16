@@ -196,20 +196,26 @@ function App() {
   }, [filter]);
 
   useEffect(() => {
-    if (screen !== "result") return;
+    if (screen !== "result" || !resultUrl) return;
 
     const timer = setTimeout(() => {
-      try {
-        if (window.adsbygoogle) {
-          window.adsbygoogle.push({});
+      requestAnimationFrame(() => {
+        try {
+          const ad = document.querySelector(".ad-slot .adsbygoogle");
+          if (!ad) return;
+
+          const width = ad.getBoundingClientRect().width;
+          if (width <= 0) return;
+
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+          console.error("AdSense push error:", error);
         }
-      } catch (error) {
-        console.error("AdSense push error:", error);
-      }
-    }, 300);
+      });
+    }, 800);
 
     return () => clearTimeout(timer);
-  }, [screen]);
+  }, [screen, resultUrl]);
 
   useEffect(() => {
     if (screen === "booth" && mode.source === "webcam") {
@@ -1603,7 +1609,12 @@ function App() {
                 <div className="ad-slot">
                   <ins
                     className="adsbygoogle"
-                    style={{ display: "block" }}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      minWidth: "250px",
+                      minHeight: "90px",
+                    }}
                     data-ad-client="ca-pub-8092440969971291"
                     data-ad-slot="7247205282"
                     data-ad-format="auto"
