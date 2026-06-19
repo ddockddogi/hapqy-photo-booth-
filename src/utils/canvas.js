@@ -81,6 +81,29 @@ const FRAME_CONFIG = {
           { x: 51, y: 1434, w: 799, h: 420, radius: 0 },
         ],
       })),
+
+      {
+        key: "whitestar",
+        label: "White Star",
+        src: "/frames/4cut_whitestar.png",
+        slots: [
+          { x: 51, y: 54, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 514, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 974, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 1434, w: 799, h: 420, radius: 0 },
+        ],
+      },
+      {
+        key: "blackdot",
+        label: "Black Dot",
+        src: "/frames/4cut_blackdot.png",
+        slots: [
+          { x: 51, y: 54, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 514, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 974, w: 799, h: 420, radius: 0 },
+          { x: 51, y: 1434, w: 799, h: 420, radius: 0 },
+        ],
+      },
     ],
 
     previewRatio: "9 / 22",
@@ -123,6 +146,27 @@ const FRAME_CONFIG = {
       },
 
       {
+        key: "bluedot",
+        label: "Blue Dot",
+        src: "/frames/3cut_bluedot.png",
+        slots: [
+          { x: 68, y: 66, w: 765, h: 437, oval: true },
+          { x: 68, y: 543, w: 765, h: 437, oval: true },
+          { x: 68, y: 1020, w: 765, h: 437, oval: true },
+        ],
+      },
+      {
+        key: "pinkdot",
+        label: "Pink Dot",
+        src: "/frames/3cut_pinkdot.png",
+        slots: [
+          { x: 68, y: 66, w: 765, h: 437, oval: true },
+          { x: 68, y: 543, w: 765, h: 437, oval: true },
+          { x: 68, y: 1020, w: 765, h: 437, oval: true },
+        ],
+      },
+
+      {
         key: "sky",
         label: "Sky Oval",
         src: "/frames/3cut_sky.png",
@@ -146,7 +190,26 @@ const FRAME_CONFIG = {
         key: "princess",
         label: "Princess",
         src: "/frames/3cut_princess.png",
-
+        slots: [
+          { x: 51, y: 44, w: 799, h: 571, radius: 0 },
+          { x: 51, y: 659, w: 799, h: 571, radius: 0 },
+          { x: 51, y: 1274, w: 799, h: 571, radius: 0 },
+        ],
+      },
+      {
+        key: "kimdokrae",
+        label: "Kimdokrae",
+        src: "/frames/3cut_kimdokrae.png",
+        slots: [
+          { x: 51, y: 44, w: 799, h: 571, radius: 0 },
+          { x: 51, y: 659, w: 799, h: 571, radius: 0 },
+          { x: 51, y: 1274, w: 799, h: 571, radius: 0 },
+        ],
+      },
+      {
+        key: "catofqueen",
+        label: "Cat of Queen",
+        src: "/frames/3cut_catofqueen.png",
         slots: [
           { x: 51, y: 44, w: 799, h: 571, radius: 0 },
           { x: 51, y: 659, w: 799, h: 571, radius: 0 },

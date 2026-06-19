@@ -15,6 +15,8 @@ const FRAME_OPTIONS = {
     { key: "pink", label: "Pink", color: "#df5aa0" },
     { key: "yellow", label: "Yellow", color: "#f2d94e" },
     { key: "purple", label: "Purple", color: "#9c82bd" },
+    { key: "whitestar", label: "White Star", color: "#fffaf0" },
+    { key: "blackdot", label: "Black Dot", color: "#111111" },
   ],
 
   "4cutFull": [{ key: "black-full", label: "Black Full", color: "#111111" }],
@@ -22,9 +24,15 @@ const FRAME_OPTIONS = {
   "3cut": [
     { key: "oval-black", label: "Oval Black", color: "#111111" },
     { key: "sky", label: "Sky", color: "#8fd5ff" },
+    { key: "bluedot", label: "Blue Dot", color: "#bfe8ff" },
+    { key: "pinkdot", label: "Pink Dot", color: "#ffd7e6" },
   ],
 
-  princess3cut: [{ key: "princess", label: "Princess", color: "#ff8fcf" }],
+  princess3cut: [
+    { key: "princess", label: "Princess", color: "#ff8fcf" },
+    { key: "kimdokrae", label: "Kimdokrae", color: "#f5a623" },
+    { key: "catofqueen", label: "Cat Queen", color: "#ffffff" },
+  ],
 
   grid45: [
     { key: "sky", label: "Sky Grid", color: "#8fd5ff" },
